@@ -1,0 +1,20 @@
+<aside class="single_sidebar_widget popular_post_widget">
+    <h3 class="widget_title">أقدم المقالات</h3>
+
+
+    {% for post in object_list %}
+        <div class="media post_item">
+            {% if post.image %}
+                <img src="{{post.image.url}}" alt="" style="width: 30spx; height: 30px;">
+            {% endif %}
+            <div class="media-body">
+                <a href="single-blog.html">
+                    <h3>{{post.title}}</h3>
+                </a>
+                <p>تم النتشر في : <span style="color: #00D363;">{{post.cretated_at|date:'d-m-Y' }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    
+
+</aside>

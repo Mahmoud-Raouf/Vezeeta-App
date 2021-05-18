@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div dir="rtl">
+<!-- bradcam_area  -->
+
+{% include "user/search.html" %}
+
+<div class="bradcam_text " >
+    <h3 >مقالات طبيه</h3>
+</div>
+
+<!--/ bradcam_area  -->
+<!--================Blog Area =================-->
+<section class="blog_area section-padding">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mb-5 mb-lg-0">
+            <div class="blog_left_sidebar">
+                {% for post in object_list %}
+                <article class="blog_item">
+                    <div class="blog_item_img">
+                        {% if post.image %}
+                        <img class="card-img rounded-0" src="{{post.image.url}}" alt="">
+                        {% endif %}
+                        <a href="#" class="blog_item_date">
+                            <h3>{{post.cretated_at|date:'d'}}</h3>
+                            <p>{{post.cretated_at|date:'F'}}</p>
+                        </a>
+                    </div>
+                      
+                    <div class="blog_details"> 
+                        <a class="d-inline-block" href="{% url 'blog:blog_detail' post.slug %}">
+                            <h2>{{post.title}}</h2>
+                        </a>
+                        <p>تجميل و زراعه الاسنان  بكالريوس علوم جامعة بورك تجميل و زراعه الاسنان  بكالريوس علوم جامعة بورك تجميل و زراعه الاسنان  بكالريوس علوم جامعة بورك</p>
+                        <ul class="blog-info-link">
+                            <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
+                            <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                        </ul>
+                    </div>
+                </article>
+                {% endfor %}
+
+
+                
+                {% if is_paginated %}
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                        {% if page_obj.has_privious %}
+                        <li class="page-item">
+                            <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous">
+                                <i class="ti-angle-right"></i>
+                            </a>
+                        </li>
+
+                        {% endif %}
+                        {% for pages in page_obj.paginator.page_range %}
+                            
+                            {% if page_obj.number == pages %}
+                            <li class="page-item">
+                                <a href="?page={{pages}}" class="page-link">{{pages}}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item active">
+                                <a href="?page={{pages}}" class="page-link">{{pages}}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+                                <i class="ti-angle-right"></i>
+                            </a>
+                        </li>
+
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="blog_right_sidebar">
+                {% include "blog/search.html" %}
+                {% include "blog/recent_blog.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!--================Blog Area =================-->
+</div>
+{% endblock body %}
